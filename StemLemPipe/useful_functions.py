@@ -16,7 +16,7 @@ def get_ngrams(arr, n=2):
     Делает n-grams из набора слов.
     Аналогичный метод из TextBlob почему-то автоматом ещё удаляет символы типа # 
     """
-    if len(arr)<n:
+    if len(arr) < n:
         yield []
     elif len(arr) == n:
         yield arr
@@ -31,7 +31,7 @@ def words_to_ngrams_list(words, n_min = 1, n_max = 2):
 
     answer = []
     for n in range(n_min, n_max + 1):
-        lst = [' '.join(obs) for obs in list(get_ngrams(words, n))]
+        lst = [' '.join(obs) if len(obs) > 1 else obs[0] for obs in list(get_ngrams(words, n)) if len(obs) > 0]
         if len(lst) > 0:
             answer += lst
     

@@ -3,7 +3,7 @@ import sys
 sys.path.append('..')
 
 
-from StemLemPipe import phrases2lower, phrases_without_excess_symbols, phrases_transform, text2sentences, split_by_words, sentence_split, create_stemmer_lemmer, words_to_ngrams_list, sum_phrases, wordlist2set
+from StemLemPipe import phrases2lower, phrases_without_excess_symbols, phrases_transform, text2sentences, split_by_words, sentence_split, create_stemmer_lemmer, words_to_ngrams_list, sum_phrases, wordlist2set, stopwords
 
 
 text_example = """Если в жопе шило, я могу достать.
@@ -55,7 +55,7 @@ text_example = """Если в жопе шило, я могу достать.
 sentences = text2sentences(text_example)
 
 
-phrases = [sentence_split(sentence , separators=',;') for sentence in sentences]
+phrases = [sentence_split(sentence , separators=',;', stop_words = stopwords('ru')) for sentence in sentences]
 
 
 clean_phrases = phrases2lower(phrases)
