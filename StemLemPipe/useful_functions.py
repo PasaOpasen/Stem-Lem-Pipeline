@@ -18,12 +18,24 @@ def get_ngrams(arr, n=2):
     """
     if len(arr)<n:
         yield []
-    if len(arr) == n:
+    elif len(arr) == n:
         yield arr
-    
-    for k in range(n,len(arr)+1):
-        yield arr[(k-n):k]
+    else:
+        for k in range(n,len(arr)+1):
+            yield arr[(k-n):k]
 
+def words_to_ngrams_list(words, n_min = 1, n_max = 2):
+    """
+    converts word array to array with n_grams
+    """
+
+    answer = []
+    for n in range(n_min, n_max + 1):
+        lst = [' '.join(obs) for obs in list(get_ngrams(words, n))]
+        if len(lst) > 0:
+            answer += lst
+    
+    return answer
 
 
 

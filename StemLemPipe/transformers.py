@@ -1,6 +1,5 @@
 
 
-
 def phrases_transform(phrases, func):
     """
     Converts phrases to using func for each phrase
@@ -50,6 +49,7 @@ def phrases_without_excess_symbols(phrases, include_alpha = True, include_number
     remover = lambda phrase: ''.join([a for a in phrase if a == ' ' or check1(a) or check2(a) or check3(a)])
 
     return phrases_transform(phrases, remover)
+
 
 
 

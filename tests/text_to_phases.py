@@ -3,7 +3,7 @@ import sys
 sys.path.append('..')
 
 
-from StemLemPipe import phrases2lower, phrases_without_excess_symbols, text2sentences, split_by_words, sentence_split
+from StemLemPipe import phrases2lower, phrases_without_excess_symbols, phrases_transform, text2sentences, split_by_words, sentence_split, create_stemmer_lemmer, words_to_ngrams_list, sum_phrases, wordlist2set
 
 
 text_example = """Если в жопе шило, я могу достать.
@@ -64,9 +64,16 @@ clean_phrases = phrases2lower(phrases)
 char_phrases = phrases_without_excess_symbols(clean_phrases, include_alpha= True, include_numbers= True)
 
 
+stem_lem = create_stemmer_lemmer(lemmatizer_backend='pymorphy', stemmer_backend='snowball')
 
 
+stemmed_phrases = phrases_transform(char_phrases, func = stem_lem)
 
 
+n_grams = phrases_transform(stemmed_phrases, func = lambda w: words_to_ngrams_list(w.split(), n_min = 1, n_max = 2))
+
+total = sum_phrases(n_grams)
+
+total_set = wordlist2set(total, save_order=False)
 
 
