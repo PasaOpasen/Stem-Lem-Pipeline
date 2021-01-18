@@ -46,7 +46,7 @@ def phrases_without_excess_symbols(phrases, include_alpha = True, include_number
     check2 = (lambda symbol: symbol.isnumeric()) if include_numbers else false_check
     check3 = (lambda symbol: symbol in include_also) if  not (include_also is None) else false_check
 
-    remover = lambda phrase: ''.join([a for a in phrase if a == ' ' or check1(a) or check2(a) or check3(a)])
+    remover = lambda phrase: ' '.join((''.join([a for a in phrase if a == ' ' or check1(a) or check2(a) or check3(a)])).split())
 
     return phrases_transform(phrases, remover)
 

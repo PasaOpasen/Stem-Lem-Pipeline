@@ -262,7 +262,7 @@ After previous preparations we have list of sentences where each sentence is str
 * `phrases2lower(phrases)`
 * `phrases_without_excess_symbols(phrases, include_alpha = True, include_numbers = False, include_also = None)`
 
-See example of using
+See [example of using](tests/phrases_prep.py)
 
 ### Splitting each sentence by some symbols and stop words
 
@@ -272,9 +272,68 @@ Use `stopwords(language = 'ru')` function to get stop words, but u can use your 
 
 ### Lemmatization and/or stemming
 
+To apply lemmatization of stemming for phrases u should create some lemmatization function and use if with `phrases_transform`. Create lemmatization function by one of ways:
+* `create_lemmatizer(backend = 'pymorphy', language = 'ru')`
+* `create_stemmer(backend = 'snowball', language = 'ru')`
+* `create_stemmer_lemmer(lemmatizer_backend = 'pymorphy', stemmer_backend = 'snowball', language = 'ru')` -- pipeline with lemmatizer and stemmer
+* create any another wrapper for function `text -> text`
+
+**Available stemmers**:
+
+| language        | backend           |
+| ------------- |:-------------:| 
+| `'ru'`      | `'snowball'` |
+| `'en'`      | `'snowball'`      |
+
+**Available lemmatizers**:
+
+| language        | backend           |
+| ------------- |:-------------:| 
+| `'ru'`      | `'pymorphy'`, `'mystem'` |
+| `'en'`      | `'wordnet'`      |
+
+It's not hard to add new lemmatizers but just let me know. Also have a look at [source file](StemLemPipe/stemlem_operators.py)
+
 ### N-grams
+
+Methods for getting n-grams *from array of words*:
+* `get_ngrams(arr, n=2)`
+* `words_to_ngrams_list(words, n_min = 1, n_max = 2)`
+
+How to use:
+```python
+from StemLemPipe import get_ngrams, words_to_ngrams_list
+
+text = "word1 word2 word3 ... word10"
+
+# returns generator
+gen = get_ngrams(text.split(), n = 3)
+# just list of lists
+print(list(gen))
+# [['word1', 'word2', 'word3'], ['word2', 'word3', '...'], ['word3', '...', 'word10']]
+
+
+# words in n-gram are combined, it's list of strings
+print(words_to_ngrams_list(text.split(), n_min = 1, n_max = 3))
+# ['word1', 'word2', 'word3', '...', 'word10', 'word1 word2', 'word2 word3', 'word3 ...', '... word10', 'word1 word2 word3', 'word2 word3 ...', 'word3 ... word10']
+```
 
 ### Union to set
 
+We can convert those lists of lists of lists... to list of strings using `sum_phrases` function. Also we can convert these list of strings to set using `wordlist2set(input_list, save_order = False)` function there `save_order = True` means that n-grams like `word1 word2` and `word2 word1` are not some (same otherwise).
+
 ## Pipeline
 
+Create `StemLemPipeline` object for using certain functions one after the other for new texts.
+
+Create pipeline using code:
+```python
+from StemLemPipe import StemLemPipeline
+
+pipe = StemLemPipeline([func1, func2, ...])
+```
+
+For using pipeline just call:
+```python
+result = pipe('some text for preparations')
+```
