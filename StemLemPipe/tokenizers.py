@@ -19,7 +19,9 @@ def text2sentences(txt, equal_to_space = ["\n"]):
                     inds.append(i+1)
 
     if len(inds) > 0:
-        answer = [txt[i:j-1] for i,j in zip_longest([0]+inds[:-1], inds)] + [txt[inds[-1]+1:]]
+        answer = [txt[i:j-1] for i,j in zip_longest([0]+inds[:-1], inds)]
+        if inds[-1] != len(txt):
+            answer += [txt[inds[-1]+1:]]
     else:
         answer = [txt]
     #raise Exception()

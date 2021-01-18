@@ -2,56 +2,81 @@
 # lemma analyzers
 from pymystem3 import Mystem
 import pymorphy2
+from nltk.stem import WordNetLemmatizer
 # stemmers 
 #import Stemmer
+import nltk
 from nltk.stem.snowball import RussianStemmer
 
-m = Mystem()
-morph = pymorphy2.MorphAnalyzer()
+
+
+lemmatizers = {
+    'en': {
+        'wordnet': WordNetLemmatizer()
+        },
+    'ru': {
+        'pymorphy': pymorphy2.MorphAnalyzer(),
+        'mystem': Mystem()
+    } 
+}
 
 #stemmer_stemmer = Stemmer.Stemmer('russian')
 
-stemmer_nltk = RussianStemmer(False)
+stemmers = {
+    'ru': RussianStemmer(False),
+    'en': nltk.stem.SnowballStemmer('english')
+}
 
 
+
+def lemmatize_wordnet(text):
+    lemmas = lemmatizers['en']['wordnet'].lemmatize(text)
+    return ''.join(lemmas[:-1])   
 
 def lemmatize_mystem(text):
-    lemmas = m.lemmatize(text)
+    lemmas = lemmatizers['ru']['mystem'].lemmatize(text)
     return ''.join(lemmas[:-1])
 
 def lemmatize_morphy(text):
     
-    return ' '.join([morph.parse(word)[0].normal_form for word in text.split()])
+    return ' '.join([lemmatizers['ru']['pymorphy'].parse(word)[0].normal_form for word in text.split()])
 
 
 #def stem_stemmer(text):
 #
 #    return ' '.join(stemmer_stemmer.stemWords(text.split()))
 
-def stem_nltk(text):
-    return ' '.join([stemmer_nltk.stem(word) for word in text.split()])
+def stem_nltk(text, language = 'ru'):
+    return ' '.join([stemmers[language].stem(word) for word in text.split()])
 
 
 
 
-def create_lemmatizer(backend = 'pymorphy'):
-
-    if backend == 'pymorphy':
-        return lambda text: lemmatize_morphy(text)
+def create_lemmatizer(backend = 'pymorphy', language = 'ru'):
+    if language == 'ru':
+        if backend == 'pymorphy':
+            return lambda text: lemmatize_morphy(text)
+        
+        if backend == 'mystem':
+            return lambda text: lemmatize_mystem(text)
+        
+        raise Exception(f"unknown lemmatizer backend ({backend})")
     
-    if backend == 'mystem':
-        return lambda text: lemmatize_mystem(text)
+    elif language == 'en':
+        return lambda text: lemmatize_wordnet(text)
     
-    raise Exception(f"unknown lemmatizer backend ({backend})")
+    else:
+        raise Exception(f"Unsupported language {language}")
 
-def create_stemmer(backend = 'snowball'):
+
+def create_stemmer(backend = 'snowball', language = 'ru'):
     
     if backend == 'snowball':
-        return lambda text: stem_nltk(text)
+        return lambda text: stem_nltk(text, language)
     
     raise Exception(f"unknown stemmer backend ({backend})")
 
-def create_stemmer_lemmer(lemmatizer_backend = 'pymorphy', stemmer_backend = 'snowball'):
+def create_stemmer_lemmer(lemmatizer_backend = 'pymorphy', stemmer_backend = 'snowball', language = 'ru'):
 
     ln = lemmatizer_backend is None
     sn = stemmer_backend is None
@@ -60,12 +85,12 @@ def create_stemmer_lemmer(lemmatizer_backend = 'pymorphy', stemmer_backend = 'sn
         return lambda text: text
     
     if ln:
-        return create_stemmer(stemmer_backend)
+        return create_stemmer(stemmer_backend, language)
     if sn:
-        return create_lemmatizer(lemmatizer_backend)
+        return create_lemmatizer(lemmatizer_backend, language)
     
-    f_lem = create_lemmatizer(lemmatizer_backend)
-    f_stem = create_stemmer(stemmer_backend)
+    f_lem = create_lemmatizer(lemmatizer_backend, language)
+    f_stem = create_stemmer(stemmer_backend, language)
     
     return lambda text: f_stem(f_lem(text))
 
