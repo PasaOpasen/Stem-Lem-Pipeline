@@ -1,5 +1,5 @@
 [![PyPI
-version](https://badge.fury.io/py/StemLemPipe.svg)](https://pypi.org/project/StemLemPipeline/)
+version](https://badge.fury.io/py/StemLemPipe.svg)](https://pypi.org/project/StemLemPipe/)
 [![GitHub issues](https://img.shields.io/github/issues/Naereen/StrapDown.js.svg)](https://github.com/PasaOpasen/Stem-Lem-Pipeline/issues) 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/PasaOpasen/Stem-Lem-Pipeline/pulls)
 
