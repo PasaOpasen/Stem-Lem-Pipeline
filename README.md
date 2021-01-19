@@ -31,12 +31,12 @@ pip install StemLemPipe
 
 ## The purpose of this package
 
-The main purpose of `StemLemPipeline` is the conversion texts to python sets of useful strings which are 1-, 2-, 3-, ..., n-grams of lemmatized and/or stemmed words of these texts splitted by:
+The main purpose of `StemLemPipe` is the conversion texts to python sets of useful strings which are 1-, 2-, 3-, ..., n-grams of lemmatized and/or stemmed words of these texts splitted by:
 * sentences
 * parts of sentences
 * stop words
 
-Have a look to the concept of `StemLemPipeline` pipeline:
+Have a look to the concept of `StemLemPipe` pipeline:
 
 ![](images/diagram.png)
 
