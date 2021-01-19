@@ -1,3 +1,12 @@
+[![PyPI
+version](https://badge.fury.io/py/StemLemPipeline.svg)](https://pypi.org/project/StemLemPipeline/)
+[![GitHub issues](https://img.shields.io/github/issues/Naereen/StrapDown.js.svg)](https://github.com/PasaOpasen/Stem-Lem-Pipeline/issues) 
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/PasaOpasen/Stem-Lem-Pipeline/pulls)
+
+[![Downloads](https://pepy.tech/badge/StemLemPipeline)](https://pepy.tech/project/StemLemPipeline)
+[![Downloads](https://pepy.tech/badge/StemLemPipeline/month)](https://pepy.tech/project/StemLemPipeline)
+[![Downloads](https://pepy.tech/badge/StemLemPipeline/week)](https://pepy.tech/project/StemLemPipeline)
+
 # Stemmer-lemmatizer pipeline
 
 Russian-based (but not only) text transformer used several stemming and lemmatization backends and text preparation features
