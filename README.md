@@ -27,6 +27,8 @@ pip install StemLemPipe
     - [N-grams](#n-grams)
     - [Union to set](#union-to-set)
   - [Pipeline](#pipeline)
+  - [Another tools](#another-tools)
+    - [Metrics](#metrics)
 
 
 ## The purpose of this package
@@ -346,3 +348,12 @@ For using pipeline just call:
 ```python
 result = pipe('some text for preparations')
 ```
+
+
+## Another tools
+
+### Metrics
+
+It supports next metrics:
+* `Levenstein.usual(str1, str2)`
+* `Levenstein.deep(s1, s2, remove_desc = True)`

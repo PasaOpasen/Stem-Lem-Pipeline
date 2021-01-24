@@ -14,4 +14,6 @@ from .simplifiers import sum_phrases, wordlist2set
 
 from .stopwords import stopwords
 
+from .metrics import Levenstein
+
 
