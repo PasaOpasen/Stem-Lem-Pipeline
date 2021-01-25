@@ -29,6 +29,7 @@ pip install StemLemPipe
   - [Pipeline](#pipeline)
   - [Another tools](#another-tools)
     - [Metrics](#metrics)
+    - [Little functions](#little-functions)
 
 
 ## The purpose of this package
@@ -357,3 +358,9 @@ result = pipe('some text for preparations')
 It supports next metrics:
 * `Levenstein.usual(str1, str2)`
 * `Levenstein.deep(s1, s2, remove_desc = True)`
+
+
+### Little functions
+
+For text preparation it can be highly useful to use next functions:
+* `remove_hook_words(text, hook_words)` --  removes hook words from text with one next word. For `text = "a b c d e f"` and `hook_words = ['b', 'e']` returns `"a d"` (without b, e and next words)

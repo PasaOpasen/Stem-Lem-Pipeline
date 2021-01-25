@@ -1,7 +1,7 @@
 
 import re
 
-def remove_urls (vTEXT):
+def remove_urls(vTEXT):
     return re.sub(r'((https|http)?:\/\/|www\.)(\w|\.|\/|\?|\=|\&|\%|-)*', '', vTEXT, flags=re.MULTILINE)
 
 def remove_mails(text):
@@ -36,6 +36,32 @@ def words_to_ngrams_list(words, n_min = 1, n_max = 2):
             answer += lst
     
     return answer
+
+
+
+
+
+def remove_hook_words(text, hook_words):
+    """
+    removes hook words from text with one next word
+
+    for text = "a b c d e f"
+    and hook_words = ['b', 'e']
+    returns "a d" (without b, e and next words)
+    """
+
+    words = text.split()
+    answer = []
+
+    k = 0
+    while k < len(words):
+        if words[k] in hook_words:
+            k += 2
+        else:
+            answer.append(words[k])
+            k += 1
+    
+    return ' '.join(answer)
 
 
 
