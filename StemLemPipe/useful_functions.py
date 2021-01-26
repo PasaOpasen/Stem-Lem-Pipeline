@@ -63,5 +63,10 @@ def remove_hook_words(text, hook_words):
     
     return ' '.join(answer)
 
+def remove_words(text, words):
+    """
+    removes next words from text without splitting to phrases (unlike 'sentence_split')
+    """
+    return ' '.join([w for w in text.split() if w not in words])
 
 

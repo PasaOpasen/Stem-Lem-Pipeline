@@ -363,4 +363,5 @@ It supports next metrics:
 ### Little functions
 
 For text preparation it can be highly useful to use next functions:
+* `remove_words(text, words)` -- just removes next words from text without splitting to phrases (unlike `sentence_split`)
 * `remove_hook_words(text, hook_words)` --  removes hook words from text with one next word. For `text = "a b c d e f"` and `hook_words = ['b', 'e']` returns `"a d"` (without b, e and next words)
