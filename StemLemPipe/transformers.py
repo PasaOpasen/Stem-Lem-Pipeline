@@ -1,6 +1,8 @@
 
+from tqdm import tqdm
 
-def phrases_transform(phrases, func):
+
+def phrases_transform(phrases, func, progress_bar = False):
     """
     Converts phrases to using func for each phrase
 
@@ -9,14 +11,36 @@ def phrases_transform(phrases, func):
     """
     answer = [p for p in phrases if len(p) > 0]
     result = []
+    empty_func = lambda x: None
 
     if type(answer[0]) == list:
+
+        if progress_bar:
+            p_bar = tqdm(len(answer))
+            def update_func(val):
+                p_bar.update(val)
+        else: 
+            update_func = empty_func
+
         for i in range(len(answer)):
             sub_answer = [func(a) for a in answer[i] if len(a) > 0]
             if len(sub_answer) > 0:
                 result.append(sub_answer)
+            
+            update_func(1)
+        
+        if progress_bar: p_bar.close()
+            
     else:
-        result = [func(a) for a in answer if len(a) > 0]
+        
+        if progress_bar:
+            for a in tqdm(answer):
+                if len(a) > 0:
+                    result.append(func(a))
+
+        else:
+            result = [func(a) for a in answer if len(a) > 0]
+
 
     return result     
 

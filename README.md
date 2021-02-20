@@ -270,7 +270,7 @@ Use `text2sectences` to split text to list of sentences.
 
 ### Text preparations like removing some symbols and setting lower case
 
-After previous preparations we have list of sentences where each sentence is string or list of string. To apply some functions to strings in this construction there is `phrases_transform(phrases, func)` function where `func` is the function applying to each string. Also there are some wrappers of `phrases_transform` for certain tasks:
+After previous preparations we have list of sentences where each sentence is string or list of string. To apply some functions to strings in this construction there is `phrases_transform(phrases, func, progress_bar = False)` function where `func` is the function applying to each string. Also there are some wrappers of `phrases_transform` for certain tasks:
 * `phrases2lower(phrases)`
 * `phrases_without_excess_symbols(phrases, include_alpha = True, include_numbers = False, include_also = None)`
 
@@ -364,4 +364,4 @@ It supports next metrics:
 
 For text preparation it can be highly useful to use next functions:
 * `remove_words(text, words)` -- just removes next words from text without splitting to phrases (unlike `sentence_split`)
-* `remove_hook_words(text, hook_words)` --  removes hook words from text with one next word. For `text = "a b c d e f"` and `hook_words = ['b', 'e']` returns `"a d"` (without b, e and next words)
+* `remove_hook_words(text, hook_words)` --  removes hook words from text with one next word. For `text = "a b c d e f"` and `hook_words = ['b', 'e']` returns `"a d"` (without b, e and next words) ([example](/tests/hook_words.py))

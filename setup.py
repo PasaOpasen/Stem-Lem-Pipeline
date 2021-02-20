@@ -7,7 +7,7 @@ with open("README.md", "r", encoding='utf-8') as fh:
 
 setuptools.setup(
     name="StemLemPipe", 
-    version="0.1.4",
+    version="0.1.5",
     author="Demetry Pascal",
     author_email="qtckpuhdsa@gmail.com",
     maintainer = ['Demetry Pascal'],
@@ -23,7 +23,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    install_requires=['nltk','pymorphy2','pymystem3','stop_words']
+    install_requires=['nltk','pymorphy2','pymystem3','stop_words', 'tqdm']
     
     )
 
